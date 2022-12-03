@@ -5,8 +5,7 @@ fn get_op(line: &str) -> (&str, i64) {
     let number = split
         .next()
         .map(str::parse::<i64>)
-        .map(Result::ok)
-        .flatten()
+        .and_then(Result::ok)
         .unwrap_or(0);
     (direction, number)
 }

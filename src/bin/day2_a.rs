@@ -5,9 +5,8 @@ fn get_op(line: &str) -> (&str, i64) {
     let number = split
         .next()
         .map(str::parse::<i64>)
-        .map(Result::ok)
-        .flatten()
-        .unwrap_or(0);
+        .and_then(Result::ok)
+        .expect("invalid input");
 
     (direction, number)
 }
@@ -19,7 +18,7 @@ fn main() {
             "forward" => (1, 0),
             "up" => (0, -1),
             "down" => (0, 1),
-            _ => (0, 0),
+            _ => panic!("unexpected input"),
         };
 
         (position + x1 * number, depth + y1 * number)
